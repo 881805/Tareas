@@ -1,1 +1,51 @@
-<p>product-form works!</p>
+
+<form [formGroup]="productForm" class="row">
+    <div>
+      <h2 class="mb-0">Agregar Producto</h2>
+    </div>
+    <div class="mb-2">
+        <label class="mb-1" for="nombre">Nombre*</label>
+        <input id="nombre" formControlName="nombre" type="text" class="form-control">
+        @if (productForm.controls['nombre'].invalid && (productForm.controls['nombre'].dirty || productForm.controls['nombre'].touched)) {
+          <p class="text-danger my-1">Nombre is required</p>
+        }
+      </div>
+    <div class="mb-2">
+      <label class="mb-1" for="descripcion">Descripcion*</label>
+      <input id="descripcion" formControlName="descripcion" type="text" class="form-control">
+      @if (productForm.controls['descripcion'].invalid && (productForm.controls['descripcion'].dirty || productForm.controls['descripcion'].touched)) {
+        <p class="text-danger my-1">Descripcion is required</p>
+      }
+    </div>
+    <div class="mb-2">
+      <label class="mb-1" for="precio">Precio*</label>
+      <input min="1" id="precio" formControlName="precio" type="number" class="form-control">
+      @if (productForm.controls['precio'].invalid && (productForm.controls['precio'].dirty || productForm.controls['precio'].touched)) {
+        <p class="text-danger my-1">Precio minimum required 1</p>
+      }
+    </div>
+        <div class="mb-2">
+          <label class="mb-1" for="cantidadEnStock">Stock*</label>
+          <input  id="cantidadEnStock" min="1" formControlName="cantidadEnStock" type="number" class="form-control">
+          @if (productForm.controls['cantidadEnStock'].invalid && (productForm.controls['cantidadEnStock'].dirty || productForm.controls['cantidadEnStock'].touched)) {
+            <p class="text-danger my-1">Stock is required</p>
+          }
+        </div>
+      <div class="mb-2">
+        <label class="mb-1" for="categoria">Categoria*</label>
+      <select id="categoria" formControlName="categoria" class="form-select">
+        @for (item of this.CategoriaService.categorias$(); track item.id) {
+          <option [value]="item.id">
+            {{ item.nombre }}
+          </option>
+        }
+      </select>
+        @if (productForm.controls['categoria'].invalid && (productForm.controls['categoria'].dirty || productForm.controls['categoria'].touched)) {
+          <p class="text-danger my-1">categoria is required</p>
+        }
+      </div>
+
+    <div class="d-flex justify-content-end">
+      <button (click)="callSave()" [disabled]="productForm.invalid" class="btn btn-primary" type="button">Save</button>
+    </div>
+  </form>

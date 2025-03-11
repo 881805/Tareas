@@ -1,24 +1,20 @@
+<h2>{{title}}</h2>
+
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">ID</th>
+      <th scope="col">#</th>
       <th scope="col">Nombre</th>
-      <th scope="col">Descripcion</th>
-      <th scope="col">Precio</th>
-      <th scope="col">Stock</th>
-      <th scope="col">Categoria</th>
+      <th scope="col">Descripción</th>
       <th scope="col">Acciones</th>
     </tr>
   </thead>
   <tbody>
-    @for (item of products; track $index) {
+    @for (item of categorias; track $index) {
       <tr>
         <th scope="row">{{item.id}}</th>
         <td>{{item.nombre}}</td>
         <td>{{item.descripcion}}</td>
-        <td>{{item.precio}}</td>
-        <td>{{item.cantidadEnStock}}</td>
-        <td>{{item.categoria?.nombre}}</td>
         <td>
           @if (AuthService.isSuperAdmin()) {
             <button (click)="callModalAction.emit(item);" class="btn btn-warning me-2" type="button"><i class="fas fa-pen"></i></button>
@@ -30,7 +26,7 @@
       <tr>
         <td colspan="4">
           <div class="d-flex justify-content-center align-items-center w-100">
-            <p class="mb-0">There are no products</p>
+            <p class="mb-0">No hay categorías</p>
           </div>
         </td>
       </tr>

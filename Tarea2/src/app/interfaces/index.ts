@@ -88,3 +88,18 @@ export interface IPreferenceList {
   name?: string;
   movies?: IMovie[];
 }
+
+export interface IProduct {
+  id?: number;
+  nombre?: string;
+  descripcion?: string;
+  precio?: number;
+  cantidadEnStock?: number;
+  categoria?: ICategoria
+}
+
+export interface ICategoria {
+  id?: number;
+  nombre?: string;
+  descripcion?: string;
+}
