@@ -1,11 +1,14 @@
 import { AfterViewInit, Component, Input, OnInit, OnChanges, SimpleChanges, Output, EventEmitter, inject } from '@angular/core';
 import { ICategoria } from '../../../interfaces';
 import { AuthService } from '../../../services/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-categorias-list',
   standalone: true,
-  imports: [],
+  imports: [
+    CommonModule
+  ],
   templateUrl: './categoria-list.component.html',
   styleUrl: './categoria-list.component.scss'
 })

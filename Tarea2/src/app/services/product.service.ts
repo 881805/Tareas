@@ -20,13 +20,22 @@ export class ProductService extends BaseService<IProduct> {
   public totalItems: any = [];
   private alertService: AlertService = inject(AlertService);
 
+
   getAll() {
     this.findAllWithParams({ page: this.search.page, size: this.search.size}).subscribe({
       next: (response: any) => {
-        this.search = {...this.search, ...response.meta};
-        this.totalItems = Array.from({length: this.search.totalPages ? this.search.totalPages: 0}, (_, i) => i+1);
-        this.productListSignal.set(response.data);
+        console.log('Response:', response);
+        if (Array.isArray(response)) {
+          this.productListSignal.set(response);
+          this.search = {...this.search, totalPages: 1};
+          const totalPages = this.search.totalPages ?? 0;
+          this.totalItems = Array.from({length: totalPages}, (_, i) => i+1);
+        }
+        else {
+          console.error('Invalid response format:', response);
+        }
       },
+      
       error: (err: any) => {
         console.error('error', err);
       }

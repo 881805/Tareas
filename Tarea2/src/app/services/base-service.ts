@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IResponse } from '../interfaces';
 import { Injectable, inject } from '@angular/core';
@@ -18,8 +18,12 @@ export class BaseService<T> {
     return this.http.get<IResponse<T[]>>(this.source);
   }
 
+  
   public findAllWithParams(params: any = {}): Observable<IResponse<T[]>> {
-    return this.http.get<IResponse<T[]>>(this.source, {params: this.buildUrlParams(params)});
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem('token')}` 
+  });
+  return this.http.get<any>(`${this.source}`, { headers, params });
   }
 
   public findAllWithParamsAndCustomSource(customUrlSource: string, params: any = {}): Observable<IResponse<T[]>> {

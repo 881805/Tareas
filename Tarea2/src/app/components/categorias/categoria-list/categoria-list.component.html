@@ -10,7 +10,7 @@
     </tr>
   </thead>
   <tbody>
-    @for (item of categorias; track $index) {
+    @for (item of categorias; track item.id) {
       <tr>
         <th scope="row">{{item.id}}</th>
         <td>{{item.nombre}}</td>

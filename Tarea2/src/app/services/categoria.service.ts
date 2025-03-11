@@ -22,17 +22,23 @@ export class CategoriaService extends BaseService<ICategoria> {
   private alertService: AlertService = inject(AlertService);
 
   getAll() {
-    this.findAllWithParams({ page: this.search.page, size: this.search.size}).subscribe({
-      next: (response: any) => {
-        this.search = {...this.search, ...response.meta};
-        this.totalItems = Array.from({length: this.search.totalPages ? this.search.totalPages : 0}, (_, i) => i+1);
-        this.categoriaListSignal.set(response.data);
-      },
-      error: (err: any) => {
-        console.error('error', err);
-      }
+    this.findAllWithParams({ page: this.search.page, size: this.search.size }).subscribe({
+        next: (response: any) => {
+            console.log('Response:', response);
+            if (Array.isArray(response)) {                                
+                this.categoriaListSignal.set(response); 
+                this.search = { ...this.search, totalPages: 1 }; 
+                const totalPages = this.search.totalPages ?? 0;
+                this.totalItems = Array.from({ length: totalPages }, (_, i) => i + 1);
+            } else {
+                console.error('Invalid response format:', response);
+            }
+        },
+        error: (err: any) => {
+            console.error('Error:', err);
+        }
     });
-  }
+}
 
   
   save(categoria: ICategoria) {
