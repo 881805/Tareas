@@ -60,7 +60,7 @@ export class ProductService extends BaseService<IProduct> {
     this.editCustomSource(`${product.id}`, product).subscribe({
       next: (response: any) => {
         this.alertService.displayAlert('success', response.message, 'center', 'top', ['success-snackbar']);
-        this.getAll;
+        this.getAll();
       },
       error: (err: any) => {
         this.alertService.displayAlert('error', 'An error occurred updating the product','center', 'top', ['error-snackbar']);
